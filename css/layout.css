@@ -66,6 +66,14 @@ html, body {
   transform-origin: center center;
 }
 
+.table-plane-entrance {
+  position: absolute;
+  inset: 0;
+  overflow: visible;
+  pointer-events: none;
+  transform-style: preserve-3d;
+}
+
 .table-plane {
   position: absolute;
   top: 100%;
@@ -73,7 +81,6 @@ html, body {
   width: 600px;
   height: 600px;
   overflow: visible;
-  pointer-events: none;
   transform: translateX(-50%) rotateX(-80deg);
   transform-origin: top center;
 }

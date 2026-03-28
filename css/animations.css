@@ -59,6 +59,20 @@ body.is-startup .album-card {
   animation-delay: var(--startup-delay, 0s);
 }
 
+@keyframes startupTableMachineRise {
+  from {
+    translate: 0 200px;
+  }
+  to {
+    translate: 0 0;
+  }
+}
+
+body.is-startup .table-plane-entrance {
+  animation: startupTableMachineRise 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  will-change: translate;
+}
+
 @keyframes infoEmergence {
   from {
     opacity: 0;

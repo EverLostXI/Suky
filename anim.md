@@ -393,7 +393,7 @@ const mainView    = document.getElementById('main-view');
 const playbackView= document.getElementById('playback-view');
 
 // ── 可调参数 ──
-const CAM_TARGET_ANGLE  = 80;          // 摄像机最终俯角（deg）
+const CAM_TARGET_ANGLE  = 70;          // 摄像机最终俯角（deg）
 const PHASE_A_DURATION  = 400;         // 阶段A：碟片滑出+封面展开
 const PHASE_B_DURATION  = 700;         // 阶段B：摄像机下俯
 const PHASE_B_DELAY     = 250;         // 阶段B相对阶段A的延迟启动

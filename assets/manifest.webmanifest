@@ -10,10 +10,10 @@
     "display": "standalone",
     "start_url": "/",
     "short_name": "Suky",
-    "theme_color": "#1f2652",
+    "theme_color": "#16161c",
     "description": "A virtual CD machine for your local music collection.",
     "orientation": "landscape",
-    "background_color": "#1f2652",
+    "background_color": "#16161c",
     "icons": [
       {
         "src": "./icon.png",

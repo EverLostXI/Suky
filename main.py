@@ -56,8 +56,8 @@ def process_music_library():
                     if album_artist == "Unknown Artist":
                         album_artist = album_artist_tag
 
-                    track_num_str = audio.get('tracknumber', ['99'])[0].split('/')[0]
-                    track_num = int(track_num_str) if track_num_str.isdigit() else 99
+                    track_tag = audio.get('tracknumber', ['99'])[0]
+                    track_num = int(track_tag.split('/')[0]) if track_tag.split('/')[0].isdigit() else 99
 
                     duration = audio.info.length
 
@@ -81,8 +81,12 @@ def process_music_library():
                     if album_artist == "Unknown Artist":
                         album_artist = album_artist_tag
 
-                    track_num_str = str(audio.get('TRCK', ['99']))[2:-2].split('/')[0]
-                    track_num = int(track_num_str) if track_num_str.isdigit() else 99
+                    if 'TRCK' in audio:
+                        track_tag = str(audio['TRCK'].text[0])
+                        track_num_str = track_tag.split('/')[0]
+                        track_num = int(track_num_str) if track_num_str.isdigit() else 99
+                    else:
+                        track_num = 99
 
                     duration = audio.info.length
 
@@ -113,7 +117,7 @@ def process_music_library():
             })
             
         # 按音轨号排序，以确保播放顺序和大进度条拼接顺序正确
-        tracks.sort(key=lambda x: x["track_number"])
+        tracks.sort(key=lambda x: (x["track_number"], x["file_url"]))
         
         # 排序后，计算 start_time 和 total_duration
         total_duration = 0.0

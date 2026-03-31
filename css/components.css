@@ -591,6 +591,7 @@
 }
 
 .progress-container.visible .track-info,
+.progress-container.visible-dragging .track-info,
 .track-info.force-show {
   opacity: 1 !important;
   transform: translateY(0);
@@ -628,7 +629,8 @@
   transition-delay: 0s; /* 离开时没有延迟，最先下降 */
 }
 
-.progress-container.visible .progress-bar-wrap {
+.progress-container.visible .progress-bar-wrap,
+.progress-container.visible-dragging .progress-bar-wrap {
   transform: translateY(0);
   opacity: 1;
   transition-delay: 0.15s; /* 进入时比.track-info稍晚，形成接力感 */

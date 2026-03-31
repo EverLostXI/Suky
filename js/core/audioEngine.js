@@ -516,6 +516,18 @@ export class AudioEngine {
   async resume() {
     const seq = ++this._playSeq;
     if (this.isPlaying || !this.albumData?.tracks?.length) return;
+
+    // 专辑播放到末尾后重新从头开始：
+    // 仅重置 _pausedAt 不够——_scheduled 里还留着已结束的 sources，
+    // 会触发 fast path（ctx 仍 running），导致 RAF 空转、currentTrackIndex
+    // 和 MediaSession 停留在末尾状态。
+    // 调用 _stop() 清空 _scheduled，让后续逻辑走 seekAndPlay(0)，
+    // 由它统一更新 currentTrackIndex / MediaSession metadata / position state。
+    if (this._pausedAt >= this.albumData.total_duration) {
+      this._pausedAt = 0;
+      this._stop();
+    }
+
     if (this.ctx && this._scheduled.length) {
       if (this.ctx.state === 'suspended') {
         await this.ctx.resume();

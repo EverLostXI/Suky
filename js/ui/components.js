@@ -579,7 +579,7 @@ async function _commitDragSeek() {
 
   const targetTime = _previewTime;
   await audioEngine.seekAndPlay(targetTime);
-  showPlaybackProgressInfo();
+  showPlaybackProgressInfoByDrag();
   
   // Clear the state only if user didn't start a new drag while we were seeking
   if (!_cdDragging && !_cdInertiaActive) {
@@ -595,8 +595,8 @@ const CD_DEG_PER_SEC = 90; // 4 s per revolution
 export let isProgressHoverLocked = false;
 let _playbackProgressForceShowTimeout = null;
 
-function showPlaybackProgressInfo(duration = 5000) {
-  progressContainer?.classList.add('visible');
+function showPlaybackProgressInfoByDrag(duration = 5000) {
+  progressContainer?.classList.add('visible-dragging');
 
   if (_playbackProgressForceShowTimeout) {
     clearTimeout(_playbackProgressForceShowTimeout);
@@ -610,7 +610,7 @@ function showPlaybackProgressInfo(duration = 5000) {
     //   _playbackProgressForceShowTimeout = setTimeout(tryHideTogether, 250);
     //   return;
     // }
-    progressContainer?.classList.remove('visible');
+    progressContainer?.classList.remove('visible-dragging');
     _playbackProgressForceShowTimeout = null;
   };
 
@@ -635,7 +635,7 @@ function _cdLoop(ts) {
     if (Math.abs(_cdInertiaVelocity) < 0.15) {
       _cdInertiaActive = false;
       _cdInertiaVelocity = 0;
-      showPlaybackProgressInfo();
+      showPlaybackProgressInfoByDrag();
       
       // When inertia fully stops, commit the total accumulated seek
       _commitDragSeek();

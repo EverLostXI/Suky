@@ -1041,6 +1041,19 @@ export function initPlaybackControls() {
       backBtn.click();
     }
   });
+
+  let resizeTimeoutId = null;
+  window.addEventListener('resize', () => {
+    if (resizeTimeoutId) clearTimeout(resizeTimeoutId);
+    resizeTimeoutId = setTimeout(() => {
+      const playbackMachine = document.getElementById('cd-machine-container');
+      const playbackView = document.getElementById('playback-view');
+      if (!playbackMachine || !playbackView) return;
+      const rect = playbackMachine.getBoundingClientRect();
+      const centerY = rect.top + rect.height / 2;
+      playbackView.style.setProperty('--cd-center-y', `${centerY}px`);
+    }, 50);
+  });
 }
 
 export function updatePlayPauseBtn() {
